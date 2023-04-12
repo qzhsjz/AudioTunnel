@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15.0)
 
 project(smtg-vst3-au
     VERSION 1.0.0.0
-    DESCRIPTION "igorski.nl __PLUGIN_NAME__"
+    DESCRIPTION "AudioTunnel"
 )
 
 if(NOT SMTG_ADD_VSTGUI)
@@ -32,12 +32,12 @@ set(plugin_sources
     src/ui/uimessagecontroller.h
     resource/plugin.uidesc
 )
-set(target __PLUGIN_NAME__)
+set(target AudioTunnel)
 
 smtg_add_vst3plugin(${target} ${plugin_sources})
 smtg_target_configure_version_file(${target})
 
-#smtg_add_vst3plugin(${target} PACKAGE_NAME "__PLUGIN_NAME__" SOURCES_LIST ${plugin_sources})
+#smtg_add_vst3plugin(${target} PACKAGE_NAME "AudioTunnel" SOURCES_LIST ${plugin_sources})
 set_target_properties(${target}
     PROPERTIES
         ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER}
@@ -72,8 +72,8 @@ smtg_target_add_plugin_resources(${target}
 
 if(SMTG_MAC)
     smtg_target_set_bundle(${target}
-        BUNDLE_IDENTIFIER "nl.igorski.vst.${target}"
-        COMPANY_NAME "igorski.nl"
+        BUNDLE_IDENTIFIER "codes.qin.vst.${target}"
+        COMPANY_NAME "Angelo Qin"
     )
 elseif(SMTG_WIN)
     target_sources(${target}
@@ -86,9 +86,9 @@ endif(SMTG_MAC)
 if (SMTG_MAC AND XCODE AND SMTG_COREAUDIO_SDK_PATH)
 	include(SMTG_AddVST3AuV2)
 	smtg_target_add_auv2(plugin-au
-		BUNDLE_NAME __PLUGIN_NAME__
+		BUNDLE_NAME AudioTunnel
 		BUNDLE_IDENTIFIER nl.igorski.vst.${target}.audiounit
 		INFO_PLIST_TEMPLATE ${CMAKE_CURRENT_SOURCE_DIR}/audio-unit/Info.plist
-		VST3_PLUGIN_TARGET __PLUGIN_NAME__
+		VST3_PLUGIN_TARGET AudioTunnel
     )
 endif(SMTG_MAC AND XCODE AND SMTG_COREAUDIO_SDK_PATH)

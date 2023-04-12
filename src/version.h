@@ -21,9 +21,11 @@
 // Version without build number (example "1.0.3")
 #define VERSION_STR MAJOR_VERSION_STR "." SUB_VERSION_STR "." RELEASE_NUMBER_STR
 
-#define stringOriginalFilename  "__PLUGIN_NAME__.vst3"
-#define stringFileDescription   "__PLUGIN_NAME__ plugin"
-#define stringCompanyName       "igorski.nl\0"
+#define stringOriginalFilename  "AudioTunnel.vst3"
+#define stringFileDescription   "AudioTunnel plugin"
+#define stringCompanyName       "Angelo Qin"
+#define stringCompanyMail       "mailto:qzhsjz@gmail.com"
+#define stringCompanyUrl        "https://angeloq.in"
 #define stringLegalCopyright    #PLUGIN_COPYRIGHT
 #define stringLegalTrademarks   "VST is a trademark of Steinberg Media Technologies GmbH"
 

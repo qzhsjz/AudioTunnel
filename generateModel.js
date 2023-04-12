@@ -168,13 +168,13 @@ function generateVstImpl() {
         const type = getType( entry );
 
         if ( type === "bool" ) {
-            // 1. __PLUGIN_NAME__::process
+            // 1. AudioTunnel::process
             processLines.push(`
                     case ${paramId}:
                         ${model} = ( value > 0.5f );
                         break;\n`);
 
-            // 2. __PLUGIN_NAME__::setState
+            // 2. AudioTunnel::setState
 
             setStateLines.push(`    int32 ${saved} = 0;
     if ( streamer.readInt32( ${saved} ) == false )
@@ -182,19 +182,19 @@ function generateVstImpl() {
             );
             setStateApplyLines.push(`    ${model} = ${saved} > 0;\n`); // assignment to model
 
-            // 3. __PLUGIN_NAME__::getState
+            // 3. AudioTunnel::getState
 
             getStateLines.push(`    streamer.writeInt32( ${model} ? 1 : 0 );\n` );
 
         } else {
 
-            // 1. __PLUGIN_NAME__::process
+            // 1. AudioTunnel::process
             processLines.push(`
                     case ${paramId}:
                         ${model} = ( float ) value;
                         break;\n`);
 
-            // 2. __PLUGIN_NAME__::setState
+            // 2. AudioTunnel::setState
 
             setStateLines.push(`    float ${saved} = 0.f;
     if ( streamer.readFloat( ${saved} ) == false )
@@ -202,7 +202,7 @@ function generateVstImpl() {
             );
             setStateApplyLines.push(`    ${model} = ${saved};\n`); // assignment to model
 
-            // 3. __PLUGIN_NAME__::getState
+            // 3. AudioTunnel::getState
 
             getStateLines.push(`    streamer.writeFloat( ${model} );\n` );
         }

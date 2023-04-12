@@ -44,7 +44,7 @@ float VST::SAMPLE_RATE = 44100.f; // updated in setupProcessing()
 //------------------------------------------------------------------------
 // Plugin Implementation
 //------------------------------------------------------------------------
-__PLUGIN_NAME__::__PLUGIN_NAME__()
+AudioTunnel::AudioTunnel()
 : pluginProcess( nullptr )
 , currentProcessMode( -1 ) // -1 means not initialized
 {
@@ -56,14 +56,14 @@ __PLUGIN_NAME__::__PLUGIN_NAME__()
 }
 
 //------------------------------------------------------------------------
-__PLUGIN_NAME__::~__PLUGIN_NAME__()
+AudioTunnel::~AudioTunnel()
 {
     // free all allocated resources
     delete pluginProcess;
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::initialize( FUnknown* context )
+tresult PLUGIN_API AudioTunnel::initialize( FUnknown* context )
 {
     //---always initialize the parent-------
     tresult result = AudioEffect::initialize( context );
@@ -82,26 +82,26 @@ tresult PLUGIN_API __PLUGIN_NAME__::initialize( FUnknown* context )
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::terminate()
+tresult PLUGIN_API AudioTunnel::terminate()
 {
     // nothing to do here yet...except calling our parent terminate
     return AudioEffect::terminate();
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::setActive (TBool state)
+tresult PLUGIN_API AudioTunnel::setActive (TBool state)
 {
     if (state)
-        sendTextMessage( "__PLUGIN_NAME__::setActive (true)" );
+        sendTextMessage( "AudioTunnel::setActive (true)" );
     else
-        sendTextMessage( "__PLUGIN_NAME__::setActive (false)" );
+        sendTextMessage( "AudioTunnel::setActive (false)" );
 
     // call our parent setActive
     return AudioEffect::setActive( state );
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::process( ProcessData& data )
+tresult PLUGIN_API AudioTunnel::process( ProcessData& data )
 {
     // In this example there are 4 steps:
     // 1) Read inputs parameters coming from host (in order to adapt our model values)
@@ -240,10 +240,10 @@ tresult PLUGIN_API __PLUGIN_NAME__::process( ProcessData& data )
 }
 
 //------------------------------------------------------------------------
-tresult __PLUGIN_NAME__::receiveText( const char* text )
+tresult AudioTunnel::receiveText( const char* text )
 {
     // received from Controller
-    fprintf( stderr, "[__PLUGIN_NAME__] received: " );
+    fprintf( stderr, "[AudioTunnel] received: " );
     fprintf( stderr, "%s", text );
     fprintf( stderr, "\n" );
 
@@ -251,7 +251,7 @@ tresult __PLUGIN_NAME__::receiveText( const char* text )
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::setState( IBStream* state )
+tresult PLUGIN_API AudioTunnel::setState( IBStream* state )
 {
     // called when we load a preset, the model has to be reloaded
 
@@ -334,7 +334,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::setState( IBStream* state )
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::getState( IBStream* state )
+tresult PLUGIN_API AudioTunnel::getState( IBStream* state )
 {
     // here we save the model values
 
@@ -356,7 +356,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::getState( IBStream* state )
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::setupProcessing( ProcessSetup& newSetup )
+tresult PLUGIN_API AudioTunnel::setupProcessing( ProcessSetup& newSetup )
 {
     // called before the process call, always in a disabled state (not active)
 
@@ -380,7 +380,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::setupProcessing( ProcessSetup& newSetup )
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::setBusArrangements( SpeakerArrangement* inputs,  int32 numIns,
+tresult PLUGIN_API AudioTunnel::setBusArrangements( SpeakerArrangement* inputs,  int32 numIns,
                                                  SpeakerArrangement* outputs, int32 numOuts )
 {
     if ( numIns == 1 && numOuts == 1 )
@@ -434,7 +434,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::setBusArrangements( SpeakerArrangement* inpu
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::canProcessSampleSize( int32 symbolicSampleSize )
+tresult PLUGIN_API AudioTunnel::canProcessSampleSize( int32 symbolicSampleSize )
 {
     if ( symbolicSampleSize == kSample32 )
         return kResultTrue;
@@ -447,7 +447,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::canProcessSampleSize( int32 symbolicSampleSi
 }
 
 //------------------------------------------------------------------------
-tresult PLUGIN_API __PLUGIN_NAME__::notify( IMessage* message )
+tresult PLUGIN_API AudioTunnel::notify( IMessage* message )
 {
     if ( !message )
         return kInvalidArgument;
@@ -462,7 +462,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::notify( IMessage* message )
             // size should be 100
             if ( size == 100 && ((char*)data)[1] == 1 ) // yeah...
             {
-                fprintf( stderr, "[__PLUGIN_NAME__] received the binary message!\n" );
+                fprintf( stderr, "[AudioTunnel] received the binary message!\n" );
             }
             return kResultOk;
         }
@@ -471,7 +471,7 @@ tresult PLUGIN_API __PLUGIN_NAME__::notify( IMessage* message )
     return AudioEffect::notify( message );
 }
 
-void __PLUGIN_NAME__::syncModel()
+void AudioTunnel::syncModel()
 {
     // forward the protected model values onto the plugin process and related processors
     // NOTE: when dealing with "bool"-types, use Calc::toBool() to determine on/off

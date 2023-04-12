@@ -47,9 +47,9 @@ extern void* moduleHandle;
 // GetPluginFactory function!
 //------------------------------------------------------------------------
 
-BEGIN_FACTORY_DEF( "igorski.nl",
-                   "https://www.igorski.nl",
-                   "mailto:info@igorski.nl")
+BEGIN_FACTORY_DEF( stringCompanyName,
+                   stringCompanyUrl,
+                   stringCompanyMail)
 
     //---First Plug-in included in this factory-------
     // its kVstAudioEffectClass component
@@ -58,16 +58,16 @@ BEGIN_FACTORY_DEF( "igorski.nl",
                 kVstAudioEffectClass,            // the component category (do not change this)
                 Igorski::VST::NAME,              // plug-in name
                 Vst::kDistributable,             // means that component and controller could be distributed on different computers
-                "Fx",                            // Subcategory for this Plug-in
+                "Fx|Networking",                 // Subcategory for this Plug-in
                 FULL_VERSION_STR,                // Plug-in version
                 kVstVersionString,               // the VST 3 SDK version (do not change this)
-                __PLUGIN_NAME__::createInstance )       // function pointer called when this component should be instantiated
+                AudioTunnel::createInstance )       // function pointer called when this component should be instantiated
 
     // its kVstComponentControllerClass component
     DEF_CLASS2( INLINE_UID_FROM_FUID( Igorski::VST::PluginControllerUID ),
                 PClassInfo::kManyInstances,   // cardinality
                 kVstComponentControllerClass, // the Controller category (do not change this)
-                "__PLUGIN_NAME__Controller",  // controller name (could be the same as component name)
+                "AudioTunnelController",  // controller name (could be the same as component name)
                 0, "",                        // neither of these are used here
                 FULL_VERSION_STR,             // Plug-in version
                 kVstVersionString,            // the VST 3 SDK version (do not change this)

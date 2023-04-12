@@ -6,9 +6,9 @@
  * replace instances of \__PLUGIN_NAME\__ with your plugins name (without spaces)
  * everything described in the README below w/ regards to plugin types
 
-# __PLUGIN_NAME__
+# AudioTunnel
 
-__PLUGIN_NAME__ is a VST/AU plug-in which provides... [description goes here]
+AudioTunnel is a VST/AU plug-in which provides... [description goes here]
 
 ## On compatibility
 
@@ -101,7 +101,7 @@ And if you are running Linux, you can easily resolve all dependencies by first r
 
 ### Building the plugin
 
-Run CMake to generate the Makefile for your environment, after which you can compile the plugin using make. The build output will be stored in _./build/VST3/__PLUGIN_NAME__.vst3_ as well as symbolically linked to your systems VST-plugin folder (on Unix).
+Run CMake to generate the Makefile for your environment, after which you can compile the plugin using make. The build output will be stored in _./build/VST3/AudioTunnel.vst3_ as well as symbolically linked to your systems VST-plugin folder (on Unix).
 
 You must provide the path to the Steinberg SDK by providing _VST3_SDK_ROOT_ to CMake like so:
 
@@ -136,8 +136,8 @@ You can copy the build output into your system VST(3) folder and run it directly
 When debugging, you can also choose to run the plugin against Steinbergs validator and editor host utilities:
 
 ```
-{VST3_SDK_ROOT}/build/bin/validator  build/VST3/__PLUGIN_NAME__.vst3
-{VST3_SDK_ROOT}/build/bin/editorhost build/VST3/__PLUGIN_NAME__.vst3
+{VST3_SDK_ROOT}/build/bin/validator  build/VST3/AudioTunnel.vst3
+{VST3_SDK_ROOT}/build/bin/editorhost build/VST3/AudioTunnel.vst3
 ```
 
 ### Build as Audio Unit (macOS only)
@@ -161,7 +161,7 @@ Execute the following instructions to build the plugin as an Audio Unit:
 VST3_SDK_ROOT=/path/to/VST_SDK/vst3sdk sh build_au.sh
 ```
 
-The subsequent Audio Unit component will be located in _./build/VST3/__PLUGIN_NAME__.component_ as well as linked
+The subsequent Audio Unit component will be located in _./build/VST3/AudioTunnel.component_ as well as linked
 in _~/Library/Audio/Plug-Ins/Components/_
 
 You can validate the Audio Unit using Apple's _auval_ utility, by running _auval -v aufx dist IGOR_ on the command line. Note that there is the curious behaviour that you might need to reboot before the plugin shows up, though you can force a flush of the Audio Unit cache at runtime by running _killall -9 AudioComponentRegistrar_. If you

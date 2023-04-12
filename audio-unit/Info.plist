@@ -47,13 +47,13 @@
 	<array>
 		<dict>
 			<key>description</key>
-			<string>__PLUGIN_NAME__</string>
+			<string>AudioTunnel</string>
 			<key>factoryFunction</key>
 			<string>AUWrapperFactory</string>
 			<key>manufacturer</key>
 			<string>IGOR</string>
 			<key>name</key>
-			<string>igorski: __PLUGIN_NAME__</string>
+			<string>igorski: AudioTunnel</string>
 			<key>subtype</key>
 			<string>dist</string>
 			<key>type</key>
